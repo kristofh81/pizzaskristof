@@ -190,37 +190,4 @@ class Product
     {
         return $this->image;
     }
-
-    /**
-     * Add ordered_product
-     *
-     * @param \StoreBundle\Entity\Ordered_product $orderedProduct
-     * @return Product
-     */
-    public function addOrderedProduct(\StoreBundle\Entity\Ordered_product $orderedProduct)
-    {
-        $this->ordered_product[] = $orderedProduct;
-
-        return $this;
-    }
-
-    /**
-     * Remove ordered_product
-     *
-     * @param \StoreBundle\Entity\Ordered_product $orderedProduct
-     */
-    public function removeOrderedProduct(\StoreBundle\Entity\Ordered_product $orderedProduct)
-    {
-        $this->ordered_product->removeElement($orderedProduct);
-    }
-
-    /**
-     * Get ordered_product
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getOrderedProduct()
-    {
-        return $this->ordered_product;
-    }
 }

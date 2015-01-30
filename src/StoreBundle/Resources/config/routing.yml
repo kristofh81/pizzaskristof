@@ -1,3 +1,7 @@
 store_homepage:
     path:     /hello/{name}
     defaults: { _controller: StoreBundle:Default:index }
+
+product:
+    resource: "@StoreBundle/Controller/"
+    type:     annotation
