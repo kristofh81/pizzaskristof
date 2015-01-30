@@ -1,13 +1,14 @@
 <?php
 
 namespace StoreBundle\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Product
  *
- * @ORM\Table()
+ * @ORM\Table(name="product")
  * @ORM\Entity
  */
 class Product
@@ -57,9 +58,9 @@ class Product
     private $image;
 
     /**
-     * @ORM\OneToMany(targetEntity="Ordered_product", mappedBy="productId")
+     * @ORM\OneToMany(targetEntity="OrderedProduct", mappedBy="productId")
      **/
-    protected $ordered_product;
+    private $ordered_product;
 
     public function __construct()
     {

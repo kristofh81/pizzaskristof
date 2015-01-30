@@ -59,7 +59,8 @@ class Customer
     /**
      * @var integer
      *
-     * @ORM\Column(name="zipId", type="integer")
+     * @ORM\ManyToOne(targetEntity="Zip", inversedBy="customers_zip")
+     * @ORM\JoinColumn(name="zip_id", referencedColumnName="id")
      */
     private $zipId;
 
@@ -80,7 +81,8 @@ class Customer
     /**
      * @var integer
      *
-     * @ORM\Column(name="userId", type="integer")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="customers_users")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $userId;
 

@@ -7,23 +7,21 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use StoreBundle\Entity\Product;
-
-use StoreBundle\Form\ProductType;
-use Symfony\Component\HttpFoundation\Response;
+use StoreBundle\Entity\User;
+use StoreBundle\Form\UserType;
 
 /**
- * Product controller.
+ * User controller.
  *
- * @Route("/product")
+ * @Route("/user")
  */
-class ProductController extends Controller
+class UserController extends Controller
 {
 
     /**
-     * Lists all Product entities.
+     * Lists all User entities.
      *
-     * @Route("/", name="product")
+     * @Route("/", name="user")
      * @Method("GET")
      * @Template()
      */
@@ -31,27 +29,22 @@ class ProductController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $repository = $em->getRepository('StoreBundle:Product');
+        $entities = $em->getRepository('StoreBundle:User')->findAll();
 
-        $product = $repository->findAll();
-
-        return new Response(var_dump($product));
-
-        /*return array(
+        return array(
             'entities' => $entities,
         );
-        */
     }
     /**
-     * Creates a new Product entity.
+     * Creates a new User entity.
      *
-     * @Route("/", name="product_create")
+     * @Route("/", name="user_create")
      * @Method("POST")
-     * @Template("StoreBundle:Product:new.html.twig")
+     * @Template("StoreBundle:User:new.html.twig")
      */
     public function createAction(Request $request)
     {
-        $entity = new Product();
+        $entity = new User();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -60,7 +53,7 @@ class ProductController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('product_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('user_show', array('id' => $entity->getId())));
         }
 
         return array(
@@ -70,16 +63,16 @@ class ProductController extends Controller
     }
 
     /**
-     * Creates a form to create a Product entity.
+     * Creates a form to create a User entity.
      *
-     * @param Product $entity The entity
+     * @param User $entity The entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Product $entity)
+    private function createCreateForm(User $entity)
     {
-        $form = $this->createForm(new ProductType(), $entity, array(
-            'action' => $this->generateUrl('product_create'),
+        $form = $this->createForm(new UserType(), $entity, array(
+            'action' => $this->generateUrl('user_create'),
             'method' => 'POST',
         ));
 
@@ -89,15 +82,15 @@ class ProductController extends Controller
     }
 
     /**
-     * Displays a form to create a new Product entity.
+     * Displays a form to create a new User entity.
      *
-     * @Route("/new", name="product_new")
+     * @Route("/new", name="user_new")
      * @Method("GET")
      * @Template()
      */
     public function newAction()
     {
-        $entity = new Product();
+        $entity = new User();
         $form   = $this->createCreateForm($entity);
 
         return array(
@@ -107,9 +100,9 @@ class ProductController extends Controller
     }
 
     /**
-     * Finds and displays a Product entity.
+     * Finds and displays a User entity.
      *
-     * @Route("/{id}", name="product_show")
+     * @Route("/{id}", name="user_show")
      * @Method("GET")
      * @Template()
      */
@@ -117,10 +110,10 @@ class ProductController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('StoreBundle:Product')->find($id);
+        $entity = $em->getRepository('StoreBundle:User')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Product entity.');
+            throw $this->createNotFoundException('Unable to find User entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -132,9 +125,9 @@ class ProductController extends Controller
     }
 
     /**
-     * Displays a form to edit an existing Product entity.
+     * Displays a form to edit an existing User entity.
      *
-     * @Route("/{id}/edit", name="product_edit")
+     * @Route("/{id}/edit", name="user_edit")
      * @Method("GET")
      * @Template()
      */
@@ -142,10 +135,10 @@ class ProductController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('StoreBundle:Product')->find($id);
+        $entity = $em->getRepository('StoreBundle:User')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Product entity.');
+            throw $this->createNotFoundException('Unable to find User entity.');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -159,16 +152,16 @@ class ProductController extends Controller
     }
 
     /**
-    * Creates a form to edit a Product entity.
+    * Creates a form to edit a User entity.
     *
-    * @param Product $entity The entity
+    * @param User $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(Product $entity)
+    private function createEditForm(User $entity)
     {
-        $form = $this->createForm(new ProductType(), $entity, array(
-            'action' => $this->generateUrl('product_update', array('id' => $entity->getId())),
+        $form = $this->createForm(new UserType(), $entity, array(
+            'action' => $this->generateUrl('user_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -177,20 +170,20 @@ class ProductController extends Controller
         return $form;
     }
     /**
-     * Edits an existing Product entity.
+     * Edits an existing User entity.
      *
-     * @Route("/{id}", name="product_update")
+     * @Route("/{id}", name="user_update")
      * @Method("PUT")
-     * @Template("StoreBundle:Product:edit.html.twig")
+     * @Template("StoreBundle:User:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('StoreBundle:Product')->find($id);
+        $entity = $em->getRepository('StoreBundle:User')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Product entity.');
+            throw $this->createNotFoundException('Unable to find User entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -200,7 +193,7 @@ class ProductController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('product_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('user_edit', array('id' => $id)));
         }
 
         return array(
@@ -210,9 +203,9 @@ class ProductController extends Controller
         );
     }
     /**
-     * Deletes a Product entity.
+     * Deletes a User entity.
      *
-     * @Route("/{id}", name="product_delete")
+     * @Route("/{id}", name="user_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id)
@@ -222,21 +215,21 @@ class ProductController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('StoreBundle:Product')->find($id);
+            $entity = $em->getRepository('StoreBundle:User')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Product entity.');
+                throw $this->createNotFoundException('Unable to find User entity.');
             }
 
             $em->remove($entity);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('product'));
+        return $this->redirect($this->generateUrl('user'));
     }
 
     /**
-     * Creates a form to delete a Product entity by id.
+     * Creates a form to delete a User entity by id.
      *
      * @param mixed $id The entity id
      *
@@ -245,7 +238,7 @@ class ProductController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('product_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('user_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()

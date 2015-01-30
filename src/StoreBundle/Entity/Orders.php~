@@ -1,7 +1,7 @@
 <?php
 
 namespace StoreBundle\Entity;
-
+use Doctrine\Common\Collections\ArrayCollection;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -64,6 +64,15 @@ class Orders
      */
     private $infoOrder;
 
+    /**
+     * @ORM\OneToMany(targetEntity="OrderedProduct", mappedBy="orderId")
+     **/
+    private $product_details;
+
+    public function __construct()
+    {
+        $this->product_details = new ArrayCollection();
+    }
 
 
     /**

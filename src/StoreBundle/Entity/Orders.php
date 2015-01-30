@@ -1,7 +1,7 @@
 <?php
 
 namespace StoreBundle\Entity;
-
+use Doctrine\Common\Collections\ArrayCollection;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -64,6 +64,15 @@ class Orders
      */
     private $infoOrder;
 
+    /**
+     * @ORM\OneToMany(targetEntity="OrderedProduct", mappedBy="orderId")
+     **/
+    private $product_details;
+
+    public function __construct()
+    {
+        $this->product_details = new ArrayCollection();
+    }
 
 
     /**
@@ -212,5 +221,38 @@ class Orders
     public function getInfoOrder()
     {
         return $this->infoOrder;
+    }
+
+    /**
+     * Add product_details
+     *
+     * @param \StoreBundle\Entity\OrderedProduct $productDetails
+     * @return Orders
+     */
+    public function addProductDetail(\StoreBundle\Entity\OrderedProduct $productDetails)
+    {
+        $this->product_details[] = $productDetails;
+
+        return $this;
+    }
+
+    /**
+     * Remove product_details
+     *
+     * @param \StoreBundle\Entity\OrderedProduct $productDetails
+     */
+    public function removeProductDetail(\StoreBundle\Entity\OrderedProduct $productDetails)
+    {
+        $this->product_details->removeElement($productDetails);
+    }
+
+    /**
+     * Get product_details
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getProductDetails()
+    {
+        return $this->product_details;
     }
 }
