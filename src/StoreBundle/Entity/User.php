@@ -3,14 +3,17 @@
 namespace StoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * User
  *
  * @ORM\Table(name="user")
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks() 
  */
-class User
+class User implements UserInterface
 {
     /**
      * @var integer
@@ -31,14 +34,14 @@ class User
     /**
      * @var string
      *
-     * @ORM\Column(name="password", type="string", length=55)
+     * @ORM\Column(name="password", type="string", length=60)
      */
     private $password;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="salt", type="string", length=255)
+     * @ORM\Column(name="salt", type="string", length=255, nullable=true)
      */
     private $salt;
 
@@ -101,7 +104,7 @@ class User
      */
     public function setPassword($password)
     {
-        $this->password = $password;
+        $this->password = md5($password);
 
         return $this;
     }
@@ -136,7 +139,7 @@ class User
      */
     public function getSalt()
     {
-        return $this->salt;
+        return null;
     }
 
     /**
@@ -144,10 +147,12 @@ class User
      *
      * @param \DateTime $joined
      * @return User
+     *
+     * @ORM\PrePersist 
      */
-    public function setJoined($joined)
+    public function setJoined()
     {
-        $this->joined = $joined;
+        $this->joined = new \DateTime();;
 
         return $this;
     }
@@ -160,5 +165,17 @@ class User
     public function getJoined()
     {
         return $this->joined;
+    }
+
+    /**
+     * Get the user role
+     */
+    public function getRoles()
+    {
+        return array('ROLE_USER');
+    }
+
+     public function eraseCredentials()
+    {
     }
 }

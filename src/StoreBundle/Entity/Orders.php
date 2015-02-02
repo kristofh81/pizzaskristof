@@ -1,15 +1,18 @@
 <?php
 
 namespace StoreBundle\Entity;
-use Doctrine\Common\Collections\ArrayCollection;
+
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
 
 /**
  * Orders
  *
  * @ORM\Table(name="orders")
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks() 
  */
 class Orders
 {
@@ -25,7 +28,8 @@ class Orders
     /**
      * @var integer
      *
-     * @ORM\Column(name="customer_id", type="integer")
+     * @ORM\ManyToOne(targetEntity="Customer", inversedBy="customers_zip")
+     * @ORM\JoinColumn(name="customer_id", referencedColumnName="id")
      */
     private $customerId;
 
@@ -159,10 +163,12 @@ class Orders
      *
      * @param \DateTime $date
      * @return Orders
+     *
+     * @ORM\PrePersist 
      */
     public function setDate($date)
     {
-        $this->date = $date;
+        $this->date = new \DateTime();
 
         return $this;
     }

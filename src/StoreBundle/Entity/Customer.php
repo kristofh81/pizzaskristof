@@ -3,6 +3,7 @@
 namespace StoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Customer
@@ -92,6 +93,18 @@ class Customer
      * @ORM\Column(name="active", type="boolean")
      */
     private $active;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="Orders", mappedBy="customerId")
+     **/
+    private $orders;
+
+    public function __construct()
+    {
+        $this->orders = new ArrayCollection();
+    }
+
 
 
     /**
