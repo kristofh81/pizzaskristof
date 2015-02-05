@@ -3,6 +3,7 @@
 namespace StoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Zip
@@ -24,14 +25,14 @@ class Zip
     /**
      * @var string
      *
-     * @ORM\Column(name="cityName", type="string", length=255)
+     * @ORM\Column(name="cityName", type="string", length=255, nullable=true)
      */
     private $cityName;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="zipcode", type="integer")
+     * @ORM\Column(name="zipcode", type="integer", nullable=true)
      */
     private $zipcode;
 
@@ -44,6 +45,11 @@ class Zip
     {
         $this->customers_zip = new ArrayCollection();
     }
+
+    public function __toString()
+{
+    return $this->cityName;
+}
 
     /**
      * Get id
@@ -76,5 +82,61 @@ class Zip
     public function getCityName()
     {
         return $this->cityName;
+    }
+
+    /**
+     * Set zipcode
+     *
+     * @param integer $zipcode
+     * @return Zip
+     */
+    public function setZipcode($zipcode)
+    {
+        $this->zipcode = $zipcode;
+
+        return $this;
+    }
+
+    /**
+     * Get zipcode
+     *
+     * @return integer 
+     */
+    public function getZipcode()
+    {
+        return $this->zipcode;
+    }
+
+    /**
+     * Add customers_zip
+     *
+     * @param \StoreBundle\Entity\Customer $customersZip
+     * @return Zip
+     */
+    public function addCustomersZip(\StoreBundle\Entity\Customer $customersZip)
+    {
+        $this->customers_zip[] = $customersZip;
+
+        return $this;
+    }
+
+    /**
+     * Remove customers_zip
+     *
+     * @param \StoreBundle\Entity\Customer $customersZip
+     */
+    public function removeCustomersZip(\StoreBundle\Entity\Customer $customersZip)
+    {
+        $this->customers_zip->removeElement($customersZip);
+    }
+
+    /**
+     * Get customers_zip
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCustomersZip()
+    {
+        return $this->customers_zip;
     }
 }

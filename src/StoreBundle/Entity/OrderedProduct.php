@@ -38,7 +38,7 @@ class OrderedProduct
    /**
      * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="Product", inversedBy="ordered_products")
+     * @ORM\ManyToOne(targetEntity="Product", inversedBy="ordered_product")
      * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
      */
     private $productId;

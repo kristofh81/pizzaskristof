@@ -1,0 +1,20 @@
+{% extends 'StoreBundle::layout.html.twig' %}
+
+{% block title %}
+    SHOPPING-CART Beppe's Pizza Shop
+{% endblock %}
+
+{% block content %}
+    <h1>Nieuwe Klant</h1>
+
+    <br><br>
+    {{ form(form) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('customer') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+{% endblock %}

@@ -33,6 +33,14 @@
     </table>
 
         <ul class="record_actions">
+
+    <li>
+        <a href="{{ path('cart_add', { 'id': entity.id }) }}">
+            Bestel ze
+        </a>
+    </li>    
+
+<br><hr><br>
     <li>
         <a href="{{ path('product') }}">
             Back to the list
@@ -43,6 +51,7 @@
             Edit
         </a>
     </li>
+
     <li>{{ form(delete_form) }}</li>
 </ul>
 {% endblock %}

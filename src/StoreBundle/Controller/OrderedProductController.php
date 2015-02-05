@@ -10,6 +10,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use StoreBundle\Entity\OrderedProduct;
 use StoreBundle\Form\OrderedProductType;
 
+use StoreBundle\Entity\Product;
+use Doctrine\Common\Util\Debug;
+
 /**
  * OrderedProduct controller.
  *
@@ -25,16 +28,64 @@ class OrderedProductController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
+        $session = $request->getSession();
 
-        $entities = $em->getRepository('StoreBundle:OrderedProduct')->findAll();
+        $name = $session->get('name');
+        $price = $session->get('price');
+        $image = $session->get('image');
 
-        return array(
-            'entities' => $entities,
-        );
+
+    //$id = $request->query->get('id');
+//
+//
+//    //$em = $this->getDoctrine()->getEntityManager();
+//    //$product = $em->getRepository('StoreBundle:Product')->find($id);
+//
+//    //$naam = $product->getName();
+//      //$prijs =  $product->getPrice();
+    //$product = $product->getImage();
+
+
+    return $this->render('StoreBundle:Cart:index.html.twig', array('name'=> $name, 'price' => $price, 'image' => $image));
+
+        //$em = $this->getDoctrine()->getManager();
+        //$entities = $em->getRepository('StoreBundle:OrderedProduct')->findAll();
+        //return array(
+        //    'entities' => $entities,
+        //);
     }
+
+
+/**
+ * @Route("/{id}", name="added_orderedproduct")
+ */
+public function addAction($id, Request $request)
+{
+
+
+    $em = $this->getDoctrine()->getEntityManager();
+    $product = $em->getRepository('StoreBundle:Product')->find($id);
+    //print_r($product->getId()); die;
+
+    if (!$product) {
+        throw $this->createNotFoundException('The product does not exist');
+    } 
+    else {
+    $id = $product->getId();    
+    $name = $product->getName();
+    $price = $product->getPrice();
+    $image = $product->getImage();
+    }
+
+    $session = $request->getSession();
+
+
+
+    return $this->render('StoreBundle:Cart:productAdded.html.twig', array('name'=> $name, 'price' => $price, 'image' => $image));
+}
+
     /**
      * Creates a new OrderedProduct entity.
      *

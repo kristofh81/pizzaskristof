@@ -33,14 +33,14 @@ class ProductController extends Controller
 
         $repository = $em->getRepository('StoreBundle:Product');
 
-        $product = $repository->findAll();
+        $entities= $repository->findAll();
 
-        return new Response(var_dump($product));
 
-        /*return array(
+
+        return array(
             'entities' => $entities,
         );
-        */
+
     }
     /**
      * Creates a new Product entity.

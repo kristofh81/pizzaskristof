@@ -28,7 +28,7 @@ class Orders
     /**
      * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="Customer", inversedBy="customers_zip")
+     * @ORM\ManyToOne(targetEntity="Customer", inversedBy="orders")
      * @ORM\JoinColumn(name="customer_id", referencedColumnName="id")
      */
     private $customerId;
@@ -36,7 +36,7 @@ class Orders
     /**
      * @var float
      *
-     * @ORM\Column(name="reduction", type="float")
+     * @ORM\Column(name="reduction", type="float", nullable=true)
      */
     private $reduction;
 
@@ -57,7 +57,7 @@ class Orders
     /**
      * @var boolean
      *
-     * @ORM\Column(name="payed", type="boolean")
+     * @ORM\Column(name="payed", type="boolean", nullable=true)
      */
     private $payed;
 
@@ -78,6 +78,10 @@ class Orders
         $this->product_details = new ArrayCollection();
     }
 
+    public function __toString()
+{
+    return $this->product_details;
+}
 
     /**
      * Get id

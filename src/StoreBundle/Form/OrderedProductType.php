@@ -5,6 +5,8 @@ namespace StoreBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use StoreBundle\Entity\Product;
+use StoreBundle\Entity\Orders;
 
 class OrderedProductType extends AbstractType
 {
@@ -17,8 +19,8 @@ class OrderedProductType extends AbstractType
         $builder
             ->add('extra')
             ->add('extraPrice')
-            ->add('productId')
-            ->add('orderId')
+            //->add('productId', new ProductType())
+            //->add('orderId', new OrdersType())
         ;
     }
     

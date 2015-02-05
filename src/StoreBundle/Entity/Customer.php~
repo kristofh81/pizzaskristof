@@ -3,6 +3,7 @@
 namespace StoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Customer
@@ -52,14 +53,15 @@ class Customer
     /**
      * @var string
      *
-     * @ORM\Column(name="houseNrAdd", type="string", length=255)
+     * @ORM\Column(name="houseNrAdd", type="string", length=40, nullable=true)
      */
     private $houseNrAdd;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="zipId", type="integer")
+     * @ORM\ManyToOne(targetEntity="Zip", inversedBy="customers_zip")
+     * @ORM\JoinColumn(name="zip_id", referencedColumnName="id")
      */
     private $zipId;
 
@@ -80,7 +82,8 @@ class Customer
     /**
      * @var integer
      *
-     * @ORM\Column(name="userId", type="integer")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="customers_users")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $userId;
 
@@ -91,6 +94,21 @@ class Customer
      */
     private $active;
 
+
+    /**
+     * @ORM\OneToMany(targetEntity="Orders", mappedBy="customerId")
+     **/
+    private $orders;
+
+    public function __construct()
+    {
+        $this->orders = new ArrayCollection();
+    }
+
+    public function __toString()
+{
+    return $this->email;
+}
 
     /**
      * Get id
@@ -330,5 +348,38 @@ class Customer
     public function getActive()
     {
         return $this->active;
+    }
+
+    /**
+     * Add orders
+     *
+     * @param \StoreBundle\Entity\Orders $orders
+     * @return Customer
+     */
+    public function addOrder(\StoreBundle\Entity\Orders $orders)
+    {
+        $this->orders[] = $orders;
+
+        return $this;
+    }
+
+    /**
+     * Remove orders
+     *
+     * @param \StoreBundle\Entity\Orders $orders
+     */
+    public function removeOrder(\StoreBundle\Entity\Orders $orders)
+    {
+        $this->orders->removeElement($orders);
+    }
+
+    /**
+     * Get orders
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getOrders()
+    {
+        return $this->orders;
     }
 }

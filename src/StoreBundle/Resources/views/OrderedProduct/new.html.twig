@@ -3,6 +3,8 @@
 {% block body -%}
     <h1>OrderedProduct creation</h1>
 
+    {% include('StoreBundle:Cart:index.html.twig') %}
+
     {{ form(form) }}
 
         <ul class="record_actions">

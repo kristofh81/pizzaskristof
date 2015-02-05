@@ -1,0 +1,39 @@
+{% extends 'StoreBundle::layout.html.twig' %}
+
+
+{% block title %}
+    SHOPPING-CART Beppe's Pizza Shop
+{% endblock %}
+
+{% block content %}
+<h1>Beppe's pizza's SHOPPING-CART</h1>
+
+<br><br><br>
+<p>OVERZICHT VAN JE BESTELDE PIZZA'S</p>
+
+<ul class="thumbnails">
+
+
+
+
+    
+     <p>Quantity:</p>
+
+
+
+        <p>{{ name }}</p>
+        <p>{{ price }}</p>
+        <p>{{ image }}</p>
+
+
+
+</ul>
+
+
+</ul>
+
+
+<a href="{{ path('product') }}">Neem andere producten</a>
+<a href="{{ path('customer_new') }}">Checkout</a>
+
+{% endblock %}

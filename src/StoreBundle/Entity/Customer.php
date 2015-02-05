@@ -53,7 +53,7 @@ class Customer
     /**
      * @var string
      *
-     * @ORM\Column(name="houseNrAdd", type="string", length=255)
+     * @ORM\Column(name="houseNrAdd", type="string", length=40, nullable=true)
      */
     private $houseNrAdd;
 
@@ -105,7 +105,10 @@ class Customer
         $this->orders = new ArrayCollection();
     }
 
-
+    public function __toString()
+{
+    return $this->email;
+}
 
     /**
      * Get id
@@ -345,5 +348,38 @@ class Customer
     public function getActive()
     {
         return $this->active;
+    }
+
+    /**
+     * Add orders
+     *
+     * @param \StoreBundle\Entity\Orders $orders
+     * @return Customer
+     */
+    public function addOrder(\StoreBundle\Entity\Orders $orders)
+    {
+        $this->orders[] = $orders;
+
+        return $this;
+    }
+
+    /**
+     * Remove orders
+     *
+     * @param \StoreBundle\Entity\Orders $orders
+     */
+    public function removeOrder(\StoreBundle\Entity\Orders $orders)
+    {
+        $this->orders->removeElement($orders);
+    }
+
+    /**
+     * Get orders
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getOrders()
+    {
+        return $this->orders;
     }
 }

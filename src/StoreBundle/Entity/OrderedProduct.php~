@@ -38,7 +38,7 @@ class OrderedProduct
    /**
      * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="Product", inversedBy="ordered_product")
+     * @ORM\ManyToOne(targetEntity="Product", inversedBy="ordered_products")
      * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
      */
     private $productId;
@@ -105,5 +105,51 @@ class OrderedProduct
     public function getExtraPrice()
     {
         return $this->extraPrice;
+    }
+
+    /**
+     * Set productId
+     *
+     * @param \StoreBundle\Entity\Product $productId
+     * @return OrderedProduct
+     */
+    public function setProductId(\StoreBundle\Entity\Product $productId = null)
+    {
+        $this->productId = $productId;
+
+        return $this;
+    }
+
+    /**
+     * Get productId
+     *
+     * @return \StoreBundle\Entity\Product 
+     */
+    public function getProductId()
+    {
+        return $this->productId;
+    }
+
+    /**
+     * Set orderId
+     *
+     * @param \StoreBundle\Entity\Orders $orderId
+     * @return OrderedProduct
+     */
+    public function setOrderId(\StoreBundle\Entity\Orders $orderId = null)
+    {
+        $this->orderId = $orderId;
+
+        return $this;
+    }
+
+    /**
+     * Get orderId
+     *
+     * @return \StoreBundle\Entity\Orders 
+     */
+    public function getOrderId()
+    {
+        return $this->orderId;
     }
 }

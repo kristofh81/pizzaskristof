@@ -1,6 +1,10 @@
-{% extends '::base.html.twig' %}
+{% extends 'StoreBundle::layout.html.twig' %}
 
-{% block body -%}
+{% block title %}
+    Overzicht Pizza's uit Beppe's Pizza Shop
+{% endblock %}
+
+{% block content %}
     <h1>Product list</h1>
 
     <table class="records_list">
@@ -32,6 +36,11 @@
                     <li>
                         <a href="{{ path('product_edit', { 'id': entity.id }) }}">edit</a>
                     </li>
+
+                    <li>
+                        <a href="{{ path('cart_add', { 'id': entity.id }) }}">Bestel ze!</a>
+                    </li>
+                </ul>
                 </ul>
                 </td>
             </tr>
@@ -46,4 +55,4 @@
             </a>
         </li>
     </ul>
-    {% endblock %}
+{% endblock %}

@@ -104,7 +104,7 @@ class User implements UserInterface
      */
     public function setPassword($password)
     {
-        $this->password = md5($password);
+        $this->password = password_hash($password, PASSWORD_BCRYPT);
 
         return $this;
     }
@@ -177,5 +177,38 @@ class User implements UserInterface
 
      public function eraseCredentials()
     {
+    }
+
+    /**
+     * Add customers_users
+     *
+     * @param \StoreBundle\Entity\Customer $customersUsers
+     * @return User
+     */
+    public function addCustomersUser(\StoreBundle\Entity\Customer $customersUsers)
+    {
+        $this->customers_users[] = $customersUsers;
+
+        return $this;
+    }
+
+    /**
+     * Remove customers_users
+     *
+     * @param \StoreBundle\Entity\Customer $customersUsers
+     */
+    public function removeCustomersUser(\StoreBundle\Entity\Customer $customersUsers)
+    {
+        $this->customers_users->removeElement($customersUsers);
+    }
+
+    /**
+     * Get customers_users
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCustomersUsers()
+    {
+        return $this->customers_users;
     }
 }

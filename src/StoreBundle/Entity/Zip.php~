@@ -24,10 +24,26 @@ class Zip
     /**
      * @var string
      *
-     * @ORM\Column(name="city_name", type="string", length=255)
+     * @ORM\Column(name="cityName", type="string", length=255)
      */
     private $cityName;
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="zipcode", type="integer")
+     */
+    private $zipcode;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Customer", mappedBy="zipId")
+     */
+    private $customers_zip;
+
+    public function __construct()
+    {
+        $this->customers_zip = new ArrayCollection();
+    }
 
     /**
      * Get id
