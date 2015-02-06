@@ -19,11 +19,13 @@
     
      <p>Quantity:</p>
 
+  <div id="cart" class="cart">
+    <div id="items">
+      {% include 'StoreBundle:Cart:cart.html.twig' with {'cart': cart, 'products': products} %}
+    </div>
+    <div style="clear: both"></div>
+  </div>
 
-
-        <p>{{ name }}</p>
-        <p>{{ price }}</p>
-        <p>{{ image }}</p>
 
 
 

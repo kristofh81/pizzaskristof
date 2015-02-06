@@ -1,0 +1,33 @@
+
+
+
+{% if cart is defined %}
+ 
+{% for product_id, quantity in cart %}
+<div>
+
+<table>
+  {% for i in range(1, quantity) %}
+  	<th>{{ products[product_id] }}</th>
+  	
+ 	<td>
+      	<img alt="" src="{{ asset('images/pizza-' ~ (product_id+1) ~ '.jpg') }}" class="cart-items" id="item_{{ product_id }}_{{ i }}" style="position:relative;width:125px" />
+      	<br>
+      	<a title="Remove this item" href="{{ path('cart_remove', {'id': product_id}) }}">verwijder product</a>
+      </td>
+  {% endfor %}
+
+</table>
+
+  <span>({{ quantity }} {{ products[product_id] }})</span>
+
+
+</div>
+
+
+
+{% else %}
+    Je hebt nog niets in je Shopping Cart
+{% endfor %}
+
+{%endif%}

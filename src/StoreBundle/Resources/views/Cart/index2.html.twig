@@ -1,45 +1,36 @@
-{% extends '::base.html.twig' %}
-
-{% block body %}
-<h1>"FLAIRBAG" SHOPPING-CART</h1>
-
-<ul class="thumbnails">
+{% extends 'StoreBundle::layout.html.twig' %}
 
 
-{% get cart = app.session.get('cart') %}
+{% block title %}
+    SHOPPING-CART Beppe's Pizza Shop
+{% endblock %}
+
+{% block content %}
+<h1>Beppe's pizza's SHOPPING-CART</h1>
+
+  <div id="product_list">
+    {% for id, name in products %}
+      <a title="Add this item" href="{{ path('cart_add', {'id': id}) }}" style="display:inline-block">
+        <img alt="" src="{{ asset('images/pizza-' ~ id ~ '.jpg') }}" class="products" id="product_{{ id }}" />
+      </a>
+    {% endfor %}
+  </div>
+
+  <h2>Cart:</h2>
+  
+  <div id="wastebin" style="float:right">
+    <img id="wastebin" src="{{ asset('images/trash.png') }}" alt="" />
+  </div>
 
 
-{% if product %}
+  <div id="cart" class="cart">
+    <div id="items">
+      {% include 'StoreBundle:Cart:cart.html.twig' with {'cart': cart, 'products': products} %}
+    </div>
+    <div style="clear: both"></div>
+  </div>
 
-
-<ul class="thumbnails">
-{% if app.session.hasFlash('notice') %} 
-
- <divclass="flash-notice">
-
-  {{app.session.flash('notice') }} 
-  {{ app.session.removeFlash('notice') }}
-
- </div>
-
-{% endif %} 
-
-{% for key, item in cart %}
-    <p>ID:{{ key }}</p>
-     <p>Quantity:{{ item }}</p>
-     <button class="btn btn-primary"><a href="{{ path('cart_remove', {'id':     key}) }}">Remove</a></button>
-
-   {% for item in product %}
-        <p>{{ item.title }}</p>
-    <p>{{ item.preview }}</p>
-{% endfor %}
-
-{% endfor %}
-</ul>
-
-{% endif %}
-</ul>
-
-<a href="{{ path('product') }}">Products</a>
+  
+</div>
 
 {% endblock %}

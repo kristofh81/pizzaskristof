@@ -5,15 +5,25 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Nieuwe Klant</h1>
+    <h1>Klantengegevens - Stap 3</h1>
 
     <br><br>
     {{ form(form) }}
 
-        <ul class="record_actions">
+<ul class="record_actions">
     <li>
-        <a href="{{ path('customer') }}">
-            Back to the list
+        <a href="{{ path('product') }}">
+            <- .. <- .. Terug naar Productenlijst
+        </a>
+     </li>
+     <li>      
+        <a href="{{ path('cart') }}">
+        	<- .. Back 2 Cart    
+        </a>
+    </li>
+    <li>    
+        <a href="{{ path('orders_one', { 'id': entity.id }) }}">
+            Next step... ->
         </a>
     </li>
 </ul>

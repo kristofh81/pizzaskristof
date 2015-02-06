@@ -28,9 +28,17 @@ class OrderedProductController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function indexAction(Request $request)
+    public function indexAction($id=null, Request $request)
     {
-        $session = $request->getSession();
+
+$session = $request->getSession();
+$id = $session->get('id');
+
+$em = $this->getDoctrine()->getEntityManager();
+$product = $em->getRepository('StoreBundle:Product')->find($id);
+
+
+        
 
         $name = $session->get('name');
         $price = $session->get('price');
@@ -59,7 +67,7 @@ class OrderedProductController extends Controller
 
 
 /**
- * @Route("/{id}", name="added_orderedproduct")
+ * @Route("/{id}", name="orderedproduct_add")
  */
 public function addAction($id, Request $request)
 {
@@ -79,8 +87,18 @@ public function addAction($id, Request $request)
     $image = $product->getImage();
     }
 
-    $session = $request->getSession();
 
+    //set session
+    $session = $request->getSession();
+    $session->set('id',$id);
+
+
+
+    //if (!isset($arraysession)){
+    //  $arraysession[] = $session->set($id, $id);
+    //} else {
+    //  $session->set($id, $id);    
+    //}
 
 
     return $this->render('StoreBundle:Cart:productAdded.html.twig', array('name'=> $name, 'price' => $price, 'image' => $image));

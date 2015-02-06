@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use StoreBundle\Entity\Orders;
+use StoreBundle\Entity\Customer;
 use StoreBundle\Form\OrdersType;
 
 /**
@@ -17,6 +18,34 @@ use StoreBundle\Form\OrdersType;
  */
 class OrdersController extends Controller
 {
+
+    /**
+     * Lists all Orders entities.
+     *
+     * @Route("/bla", name="orders_one")
+     * @Method("GET")
+     * @Template()
+     */
+    public function indexForOneAction($id)
+    {
+
+
+        $em = $this->getDoctrine()->getManager($id);
+
+        $customer = new Customer();
+        $userId = $customer->getId();
+
+
+        $em->getRepository('StoreBundle:Orders')->findAll();
+        $em->persist($userId);
+        $em->flush();
+
+        $entities = $em;
+        
+        return array(
+            'entities' => $entities,
+        );
+    }
 
     /**
      * Lists all Orders entities.
@@ -35,6 +64,8 @@ class OrdersController extends Controller
             'entities' => $entities,
         );
     }
+
+
     /**
      * Creates a new Orders entity.
      *

@@ -17,8 +17,8 @@ class OrdersType extends AbstractType
         $builder
             ->add('reduction')
             ->add('totalPrice')
-            ->add('date')
-            ->add('payed')
+            //->add('date')
+            //->add('payed')
             ->add('infoOrder')
             ->add('customerId')
         ;
