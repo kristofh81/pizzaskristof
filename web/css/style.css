@@ -29,7 +29,7 @@ a:hover {text-decoration:none;}
 .clear {
 	clear: both;
 	display: block;
-	overflow: hidden;
+	overflow: auto;
 	visibility: hidden;
 	width: 0;
 	height: 0;
@@ -109,8 +109,8 @@ h1 {
 }
 	h1 a {
 		display:block; 
-		width:240px;
-		height:69px;
+		width:500px;
+		height:100px;
 		text-indent:-9999px;
 		background:url(../images/logo.png) 0 0 no-repeat;
 	}
@@ -434,7 +434,7 @@ footer {
 }
 	
 /*********extra***********/
-.block {height:105px;}
+.block {height:255px;}
 .extra {
 	min-height:100%; 
 	height:auto !important; 

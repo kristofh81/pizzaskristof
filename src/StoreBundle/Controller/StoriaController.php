@@ -4,10 +4,10 @@ namespace StoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class DefaultController extends Controller
+class StoriaController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('StoreBundle:Default:index.html.twig');
+        return $this->render('StoreBundle:Storia:storia.html.twig');
     }
 }

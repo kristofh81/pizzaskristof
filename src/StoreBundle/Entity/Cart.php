@@ -21,6 +21,12 @@ class Cart
     $this->session = $session;
   }
 
+
+  public function getCart()
+  {
+    return $this->session->get('cart', array());
+  }
+
   public function addItem($id)
   {
     $cart = $this->getCart();
@@ -45,8 +51,4 @@ class Cart
     $this->session->set('cart', $cart);
   }
   
-  public function getCart()
-  {
-    return $this->session->get('cart', array());
-  }
 }

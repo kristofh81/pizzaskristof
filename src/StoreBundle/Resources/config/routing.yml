@@ -6,3 +6,6 @@ store_ann:
     resource: "@StoreBundle/Controller/"
     type:     annotation
 
+storia:
+    path:     /storia
+    defaults: { _controller: StoreBundle:Storia:index }
