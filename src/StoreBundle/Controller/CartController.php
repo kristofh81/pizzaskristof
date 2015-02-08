@@ -51,7 +51,7 @@ public function indexAction( Request $request)
     $products = $em->getRepository('StoreBundle:Product')->findAll();
 
     $cart = new Cart($this->container->get('request')->getSession());
-    $id -= $id;
+ 
     $cart->addItem($id);
     if ($this->container->get('request')->isXmlHttpRequest())
     {
@@ -77,7 +77,7 @@ public function indexAction( Request $request)
     $products = $em->getRepository('StoreBundle:Product')->findAll();
 
     $cart = new Cart($this->container->get('request')->getSession());
-    $id -= $id;
+
     $cart->removeItem($id);
     if ($this->container->get('request')->isXmlHttpRequest())
     {
